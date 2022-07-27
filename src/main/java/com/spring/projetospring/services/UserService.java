@@ -1,6 +1,6 @@
 package com.spring.projetospring.services;
 
-import com.spring.projetospring.entities.CustomUser;
+import com.spring.projetospring.entities.User;
 import com.spring.projetospring.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +15,12 @@ public class UserService {
   @Autowired
   private UserRepository repository;
 
-  public List<CustomUser> findAll() {
+  public List<User> findAll() {
     return repository.findAll();
   }
 
-  public CustomUser findById(Long id) {
-    Optional<CustomUser> obj = repository.findById(id);
+  public User findById(Long id) {
+    Optional<User> obj = repository.findById(id);
     return obj.get();   // retorna o obj pelo id
   }
 }

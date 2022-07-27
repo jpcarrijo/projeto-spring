@@ -2,11 +2,13 @@ package com.spring.projetospring.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-//@Table
-public class CustomUser implements Serializable {
+@Table(name = "tb_user")
+public class User implements Serializable {
 
   private static final long Serializable = 1L;
 
@@ -18,10 +20,13 @@ public class CustomUser implements Serializable {
   private String phone;
   private String password;
 
-  public CustomUser() {
+  @OneToMany(mappedBy = "client")  // relação com o order
+  private List<Order> orders = new ArrayList<>(); // lista acrescenta somente o get()
+
+  public User() {
   }
 
-  public CustomUser(Long id, String name, String email, String phone, String password) {
+  public User(Long id, String name, String email, String phone, String password) {
     this.id = id;
     this.name = name;
     this.email = email;
@@ -69,11 +74,15 @@ public class CustomUser implements Serializable {
     this.password = password;
   }
 
+  public List<Order> getOrders() {
+    return orders;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof CustomUser)) return false;
-    CustomUser user = (CustomUser) o;
+    if (!(o instanceof User)) return false;
+    User user = (User) o;
     return Objects.equals(getId(), user.getId());
   }
 

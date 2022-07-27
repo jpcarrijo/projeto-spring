@@ -1,7 +1,7 @@
 package com.spring.projetospring.resources;
 
 
-import com.spring.projetospring.entities.CustomUser;
+import com.spring.projetospring.entities.User;
 import com.spring.projetospring.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +20,14 @@ public class UserResource {
   private UserService service;
 
   @GetMapping
-  public ResponseEntity<List<CustomUser>> findAll() {  // Response Entity tipo de resposta e <> é o genérico que se espera
-    List<CustomUser> list = service.findAll();
+  public ResponseEntity<List<User>> findAll() {  // Response Entity tipo de resposta e <> é o genérico que se espera
+    List<User> list = service.findAll();
     return ResponseEntity.ok().body(list);
   }
 
   @GetMapping(value = "/{id}")
-  public ResponseEntity<CustomUser> findById(@PathVariable Long id) {
-    CustomUser obj = service.findById(id);
+  public ResponseEntity<User> findById(@PathVariable Long id) {
+    User obj = service.findById(id);
     return ResponseEntity.ok().body(obj);
   }
 
