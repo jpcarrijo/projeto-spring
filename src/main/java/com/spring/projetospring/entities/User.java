@@ -1,10 +1,19 @@
 package com.spring.projetospring.entities;
 
+import javax.persistence.Entity; // preferencia sempre da especificação
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
 public class User implements Serializable {
 
+  private static final long Serializable = 1L;
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)  // geração do id - auto incremento
   private Long id;
   private String name;
   private String email;
