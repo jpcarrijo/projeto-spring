@@ -1,5 +1,7 @@
 package com.spring.projetospring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class User implements Serializable {
   private String phone;
   private String password;
 
+  @JsonIgnore   // lazy loading Jackyson / serializable
   @OneToMany(mappedBy = "client")  // relação com o order
   private List<Order> orders = new ArrayList<>(); // lista acrescenta somente o get()
 
