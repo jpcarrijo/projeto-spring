@@ -1,14 +1,12 @@
 package com.spring.projetospring.entities;
 
-import javax.persistence.Entity; // preferencia sempre da especificação
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class User implements Serializable {
+//@Table
+public class CustomUser implements Serializable {
 
   private static final long Serializable = 1L;
 
@@ -20,10 +18,10 @@ public class User implements Serializable {
   private String phone;
   private String password;
 
-  public User() {
+  public CustomUser() {
   }
 
-  public User(Long id, String name, String email, String phone, String password) {
+  public CustomUser(Long id, String name, String email, String phone, String password) {
     this.id = id;
     this.name = name;
     this.email = email;
@@ -74,8 +72,8 @@ public class User implements Serializable {
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
-    if (!(o instanceof User)) return false;
-    User user = (User) o;
+    if (!(o instanceof CustomUser)) return false;
+    CustomUser user = (CustomUser) o;
     return Objects.equals(getId(), user.getId());
   }
 
