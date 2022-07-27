@@ -18,13 +18,17 @@ public class Product implements Serializable {
   private Double price;
   private String imgUrl;
 
-//  @ManyToOne
-//  @JoinColumn(name = "category_id")
-  @Transient
-  private Set<Category> categories = new HashSet<>();  // Set para não duplicar categoria
-
   public Product() {
   }
+
+  //  @Transient -> anula para start da aplicação
+  // joinColumns e inverseJoinColumns para relação de muitos para muitos
+  @ManyToMany
+  @JoinTable(name = "tb_product_category",
+      joinColumns = @JoinColumn(name = "product_id"),  // chave estrangeira da tabela product
+      inverseJoinColumns = @JoinColumn(name = "category_id") // chave estrangeira para tabela product and category
+  )
+  private Set<Category> categories = new HashSet<>();  // Set para não duplicar categoria
 
   public Product(Long id, String name, String description, Double price, String imgUrl) {
     this.id = id;

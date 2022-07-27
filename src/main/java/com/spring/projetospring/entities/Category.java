@@ -19,9 +19,8 @@ public class Category implements Serializable {
   private Long id;
   private String name;
 
-//  @JsonIgnore   // lazy loading Jackyson / serializable
-//  @OneToMany(mappedBy = "categories")  // relação com o order
-  @Transient
+  @JsonIgnore
+  @ManyToMany(mappedBy = "categories")
   private Set<Product> products = new HashSet<>();
 
   public Category() {
