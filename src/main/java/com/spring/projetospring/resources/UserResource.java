@@ -38,5 +38,11 @@ public class UserResource {
     return ResponseEntity.created(uri).body(obj);
   }
 
+  @DeleteMapping(value = "/{id}")  // caminho http
+  public ResponseEntity<Void> delete(@PathVariable Long id) { // @PathVariable para o Long id ser reconhecido como uma variável da url
+    service.delete(id);
+    return ResponseEntity.noContent().build(); // noContent -> retorna resposta vazia
+  }
+
 
 }
