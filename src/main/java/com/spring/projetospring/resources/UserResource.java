@@ -5,15 +5,14 @@ import com.spring.projetospring.entities.User;
 import com.spring.projetospring.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
-@RestController
-@RequestMapping(value = "/users")
+@RestController  // É necessário o registro como componente para injeção de componente
+@RequestMapping(value = "/users")  // caminho
 public class UserResource {
 
   @Autowired
@@ -25,10 +24,18 @@ public class UserResource {
     return ResponseEntity.ok().body(list);
   }
 
-  @GetMapping(value = "/{id}")
+  @GetMapping(value = "/{id}")  // caminho http
   public ResponseEntity<User> findById(@PathVariable Long id) {
     User obj = service.findById(id);
     return ResponseEntity.ok().body(obj);
+  }
+
+  @PostMapping  // É necessário o registro como componente para injeção de componente
+  public ResponseEntity<User> insert(@RequestBody User obj) {
+    obj = service.insert(obj);
+    URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").
+        buildAndExpand(obj.getId()).toUri(); // metodo que retorna a resposta do status 201
+    return ResponseEntity.created(uri).body(obj);
   }
 
 
