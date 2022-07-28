@@ -1,5 +1,7 @@
 package com.spring.projetospring.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -29,6 +31,9 @@ public class Product implements Serializable {
       inverseJoinColumns = @JoinColumn(name = "category_id") // chave estrangeira para tabela product and category
   )
   private Set<Category> categories = new HashSet<>();  // Set para não duplicar categoria
+
+  @OneToMany(mappedBy = "id.product")
+  private Set<OrderItem> items = new HashSet<>();   // lista as ordens sem repetições - Set não aceita repetições
 
   public Product(Long id, String name, String description, Double price, String imgUrl) {
     this.id = id;
@@ -80,6 +85,15 @@ public class Product implements Serializable {
 
   public Set<Category> getCategories() {
     return categories;
+  }
+
+  @JsonIgnore
+  public Set<Order> getOrders() {
+    Set<Order> set = new HashSet<>();
+    for (OrderItem result : items) {
+      set.add(result.getOrder());
+    }
+    return set;
   }
 
   @Override
